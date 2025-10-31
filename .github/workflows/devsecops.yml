@@ -61,19 +61,19 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ variables.DOCKERHUB_USERNAME }}
-          password: ${{ variables.DOCKERHUB_PASSWORD }}
+          username: ${{ variable.DOCKERHUB_USERNAME }}
+          password: ${{ variable.DOCKERHUB_PASSWORD }}
       - name: Extract commit SHA
         id: vars
         run: echo "sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
       - name: Build Docker image
         run: |
-          docker build -t ${{ variables.DOCKERHUB_USERNAME }}/devsecops-fastapi-app:latest \
-                       -t ${{ variables.DOCKERHUB_USERNAME }}/devsecops-fastapi-app:${{ steps.vars.outputs.sha }} .
+          docker build -t ${{ variable.DOCKERHUB_USERNAME }}/devsecops-fastapi-app:latest \
+                       -t ${{ variable.DOCKERHUB_USERNAME }}/devsecops-fastapi-app:${{ steps.vars.outputs.sha }} .
       - name: Push Docker image
         run: |
-          docker push ${{ variables.DOCKERHUB_USERNAME }}/devsecops-fastapi-app:latest
-          docker push ${{ variables.DOCKERHUB_USERNAME }}/devsecops-fastapi-app:${{ steps.vars.outputs.sha }}
+          docker push ${{ variable.DOCKERHUB_USERNAME }}/devsecops-fastapi-app:latest
+          docker push ${{ variable.DOCKERHUB_USERNAME }}/devsecops-fastapi-app:${{ steps.vars.outputs.sha }}
 
   image_scan:
     name: Image Scan (Trivy)
