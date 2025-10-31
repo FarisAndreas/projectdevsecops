@@ -68,12 +68,12 @@ jobs:
         run: echo "sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
       - name: Build Docker image
         run: |
-          docker build -t ${{ variable.DOCKERHUB_USERNAME }}/devsecops-fastapi-app:latest \
-                       -t ${{ variable.DOCKERHUB_USERNAME }}/devsecops-fastapi-app:${{ steps.vars.outputs.sha }} .
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/devsecops-fastapi-app:latest \
+                       -t ${{ secrets.DOCKERHUB_USERNAME }}/devsecops-fastapi-app:${{ steps.vars.outputs.sha }} .
       - name: Push Docker image
         run: |
-          docker push ${{ variable.DOCKERHUB_USERNAME }}/devsecops-fastapi-app:latest
-          docker push ${{ variable.DOCKERHUB_USERNAME }}/devsecops-fastapi-app:${{ steps.vars.outputs.sha }}
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/devsecops-fastapi-app:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/devsecops-fastapi-app:${{ steps.vars.outputs.sha }}
 
   image_scan:
     name: Image Scan (Trivy)
@@ -87,4 +87,4 @@ jobs:
           wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_0.50.1_Linux-64bit.deb
           sudo dpkg -i trivy_0.50.1_Linux-64bit.deb
       - name: Scan Docker image
-        run: trivy image ${{ variables.DOCKERHUB_USERNAME }}/devsecops-fastapi-app:latest
+        run: trivy image ${{ secrets.DOCKERHUB_USERNAME }}/devsecops-fastapi-app:latest
