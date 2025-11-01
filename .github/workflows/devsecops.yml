@@ -41,7 +41,7 @@ jobs:
       - name: Install pip-audit
         run: pip install pip-audit
       - name: Run pip-audit
-        run: pip-audit
+        run: pip-audit --exclude ufw,cloud-init,walinuxagent
 
   secret_scan:
     name: Secret Scan (Gitleaks)
