@@ -43,7 +43,7 @@ jobs:
               python -m venv venv
               source venv/bin/activate
       - name: Install pip-audit
-        run: pip install --upgrade pip
+        run: pip install pip
              pip install pip-audit
       - name: Run pip-audit
         run: pip-audit
