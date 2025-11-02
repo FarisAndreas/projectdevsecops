@@ -44,6 +44,7 @@ jobs:
               source venv/bin/activate
       - name: Install pip-audit
         run: pip install pip
+             pip install requirements.txt
              pip install pip-audit
       - name: Run pip-audit
         run: pip-audit
